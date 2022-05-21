@@ -1,0 +1,6 @@
+/* css to center content */
+
+.smol-centering {
+    display: grid;
+    place-content: center;
+  }

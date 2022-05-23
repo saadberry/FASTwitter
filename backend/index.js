@@ -143,7 +143,8 @@ app.post('/newTweet', async (req,res) =>{
     const newTweet = new twt(req.body);
     await newTweet.save();
     console.log("Tweet sent!")
-    res.redirect('../public/views/home.ejs')
+    // res.redirect('../public/views/home.ejs')
+    res.render('../public/views/home.ejs',{})
 })
 
 

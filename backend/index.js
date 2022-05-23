@@ -4,6 +4,7 @@ const path = require('path')
 const app = express()
 const cors =   require('cors') 
 const { urlencoded } = require('express')
+const { reset } = require('nodemon')
 // const bcrypt = require("bcryptjs");
 // const { userInfo } = require('os')
 
@@ -134,6 +135,18 @@ app.get('/test', async (req,res) =>{
 
 })
 
+// tweets
+
+app.post('/newTweet', async (req,res) =>{
+    // const twtDeets
+    // const {x} = req.query
+    const newTweet = new twt(req.body);
+    await newTweet.save();
+    console.log("Tweet sent!")
+    res.redirect('../public/views/home.ejs')
+})
+
+
 //error page
 // app.get('*',(res,req)=>{
 //     res.status(404).render('404.ejs')
@@ -175,8 +188,44 @@ const userSchema = new mongoose.Schema({
     } 
 })
 
+
+
 const user = mongoose.model('user',userSchema)
 const user1 = new user({name:'Saad Berry',username:'saad',email:'HEHE@pomd.com',pwd:'abc'})
+
+//tweets
+
+const twtSchema = new mongoose.Schema({
+    username: {
+        type: String,
+        required:true
+    },
+    
+    tweet:{
+        type:String,
+        required:true
+    },
+
+    likes:{
+        type: Number,
+        
+    }
+
+})
+
+const  twt = mongoose.model('tweet',twtSchema)
+const twt1 = new twt({username:'saad',tweet:'hello guyz',likes:0})
+
+// twt1.save().then( twt1 => {
+    
+//     console.log(twt1)
+// })
+// .catch(e => {
+//     console.log("ERROR!")
+//     console.log(e)
+// })  
+
+
 // user1.save().then( user1 => {
     
 //     // console.log(user1)
